@@ -145,8 +145,6 @@ public class RestAutomator
                 TEST_RESULT_PANEL.getTestResultTextArea().setText(resultBuilder.toString());
                 MAIN_TAB_PANE.setSelectedIndex(2);
             });
-
-            System.out.println(resultBuilder.toString());
         } catch (final IOException ioException) {
             SwingUtils.showWarningDialog(frame, "File Error", "Could not open test file.");
         }

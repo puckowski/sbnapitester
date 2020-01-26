@@ -41,8 +41,8 @@ public class RestRequest {
 
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.9");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-        //con.setRequestProperty("Accept", "application/json");
+        //con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+        con.setRequestProperty("Accept", "application/json");
         //con.setRequestProperty("Connection", "keep-alive");
         //con.setRequestProperty("Cookie", "__cfduid=d78f0bb5e2f68bd3ce7429aa427c588871579975354");
         //con.setRequestProperty("Host", "jsonplaceholder.typicode.com");
