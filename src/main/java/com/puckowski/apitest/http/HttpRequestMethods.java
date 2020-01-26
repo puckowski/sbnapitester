@@ -4,7 +4,14 @@ public class HttpRequestMethods
 {
     private final String[] HTTP_REQUEST_METHODS_SUPPORTED = {
         "GET",
-        "POST"
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "CONNECT",
+        "OPTIONS",
+        "TRACE",
+        "PATCH"
     };
 
     public HttpRequestMethods() {
