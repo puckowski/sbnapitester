@@ -1,12 +1,9 @@
 package com.puckowski.apitest.gui;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import javax.swing.JPanel;
 
 import com.puckowski.apitest.http.HttpRequestMethods;
-import com.puckowski.apitest.gui.ComboBoxRequestType;
-import com.puckowski.apitest.gui.TextFieldRequestUrl;
-import com.puckowski.apitest.gui.ButtonSendRequest;
 
 public class PanelRequestInput extends JPanel
 {
@@ -50,7 +47,7 @@ public class PanelRequestInput extends JPanel
     }
 
     private void buildPanel() {
-        this.setLayout(new BorderLayout());
+        this.setLayout(new FlowLayout());
 
         final LabelRequestResult resultLabel = buildLabelRequestResult();
         final TextFieldRequestUrl requestTextField = buildTextFieldRequestUrl();
@@ -63,9 +60,9 @@ public class PanelRequestInput extends JPanel
         panelMethodAndSend.add(requestComboBox, BorderLayout.CENTER);
         panelMethodAndSend.add(sendButton, BorderLayout.EAST);
 
-        this.add(requestTextField, BorderLayout.CENTER);
-        this.add(panelMethodAndSend, BorderLayout.EAST);
-        this.add(resultLabel, BorderLayout.SOUTH);
+        this.add(requestTextField);
+        this.add(panelMethodAndSend);
+        this.add(resultLabel);
 
         this.setBorder(SwingUtils.getDefaultBorder());
     }

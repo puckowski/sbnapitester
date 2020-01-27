@@ -21,8 +21,8 @@ import java.io.File;
 
 public class GuiMain {
     private final String FRAME_TITLE = "SBN API Tester";
-    private final int FRAME_PREFERRED_WIDTH_PIXELS = 1400;
-    private final int FRAME_PREFERRED_HEIGHT_PIXELS = 840;
+    private final int FRAME_PREFERRED_WIDTH_PIXELS = 1200;
+    private final int FRAME_PREFERRED_HEIGHT_PIXELS = 740;
 
     private JFrame mFrame;
     private PanelTestResult mPanelTestResult;

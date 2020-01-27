@@ -25,6 +25,8 @@ public class RestAutomator
     private final String OPTIONAL_QUERY_STRING_APPEND;
 
     private int mTestIndex;
+    private int mPassCount;
+    private int mFailCount;
 
     public RestAutomator(final JTabbedPane mainTabPane, final PanelTestResult testResultPanel,
                          final String optionalQueryStringAppend) {
@@ -33,6 +35,8 @@ public class RestAutomator
         OPTIONAL_QUERY_STRING_APPEND = optionalQueryStringAppend;
 
         mTestIndex = 1;
+        mPassCount = 0;
+        mFailCount = 0;
     }
 
     public void runTestFile(final File selectedFile, final JFrame frame) {
@@ -119,21 +123,29 @@ public class RestAutomator
                     resultBuilder.append(",");
                     resultBuilder.append(Utils.quoteWrapString(String.valueOf(restResponse.getStatusCode())));
                     resultBuilder.append(",");
+
+                    mPassCount++;
                 } catch (final IOException ioException) {
                     resultBuilder.append(Utils.quoteWrapString("FAIL IO"));
                     resultBuilder.append(",");
                     resultBuilder.append(Utils.quoteWrapString("-1"));
                     resultBuilder.append(",");
+
+                    mFailCount++;
                 } catch (final AssertionError assertionError) {
                     resultBuilder.append(Utils.quoteWrapString("FAIL JSON COMPARE"));
                     resultBuilder.append(",");
                     resultBuilder.append(Utils.quoteWrapString("-1"));
                     resultBuilder.append(",");
+
+                    mFailCount++;
                 } catch (final JSONException jsonException) {
                     resultBuilder.append(Utils.quoteWrapString("FAIL JSON PARSE"));
                     resultBuilder.append(",");
                     resultBuilder.append(Utils.quoteWrapString("-1"));
                     resultBuilder.append(",");
+
+                    mFailCount++;
                 }
 
                 resultBuilder.append(Utils.quoteWrapString(testUrl));
@@ -150,6 +162,7 @@ public class RestAutomator
                 mTestIndex++;
 
                 TEST_RESULT_PANEL.getTestResultTextArea().setText(resultBuilder.toString());
+                TEST_RESULT_PANEL.setPassAndFailCountMessage(mPassCount, mFailCount);
                 MAIN_TAB_PANE.setSelectedIndex(2);
             });
         } catch (final IOException ioException) {
