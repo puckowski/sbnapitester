@@ -22,12 +22,15 @@ public class RestAutomator
 {
     private final JTabbedPane MAIN_TAB_PANE;
     private final PanelTestResult TEST_RESULT_PANEL;
+    private final String OPTIONAL_QUERY_STRING_APPEND;
 
     private int mTestIndex;
 
-    public RestAutomator(final JTabbedPane mainTabPane, final PanelTestResult testResultPanel) {
+    public RestAutomator(final JTabbedPane mainTabPane, final PanelTestResult testResultPanel,
+                         final String optionalQueryStringAppend) {
         MAIN_TAB_PANE = mainTabPane;
         TEST_RESULT_PANEL = testResultPanel;
+        OPTIONAL_QUERY_STRING_APPEND = optionalQueryStringAppend;
 
         mTestIndex = 1;
     }
@@ -49,9 +52,13 @@ public class RestAutomator
                 String testUrl, testMethod, testBody, userAgent, encoding, expectedResult, compareType;
 
                 try {
-                testUrl = obj.getString("url");
+                    testUrl = obj.getString("url");
                 } catch (final JSONException jsonException) {
                     testUrl = "";
+                }
+
+                if (OPTIONAL_QUERY_STRING_APPEND != null && OPTIONAL_QUERY_STRING_APPEND.isEmpty() == false) {
+                    testUrl += OPTIONAL_QUERY_STRING_APPEND;
                 }
 
                 try {

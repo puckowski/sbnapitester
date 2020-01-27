@@ -51,14 +51,7 @@ public class PanelTestResultControls extends JPanel
 
     private JButton buildRunTestButton() {
         JButton runTestFileButton = new JButton("Run Test File");
-        runTestFileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                File selectedFile = SwingUtils.selectFileFromChooser(MAIN_FRAME);
-                RestAutomator restAutomator = new RestAutomator(MAIN_TAB_PANE, TEST_RESULT_PANEL);
-                restAutomator.runTestFile(selectedFile, MAIN_FRAME);
-            }
-        });
+        runTestFileButton.addActionListener(new ActionListenerRunTests(MAIN_FRAME, MAIN_TAB_PANE, TEST_RESULT_PANEL));
 
         return runTestFileButton;
     }

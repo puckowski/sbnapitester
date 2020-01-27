@@ -65,14 +65,7 @@ public class GuiMain {
         JMenu menu = new JMenu("File");
 
         JMenuItem openTestFileItem = new JMenuItem("Open test file...");
-        openTestFileItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
-                File selectedFile = SwingUtils.selectFileFromChooser(mFrame);
-                RestAutomator restAutomator = new RestAutomator(mainTabPane, testResultPanel);
-                restAutomator.runTestFile(selectedFile, mFrame);
-            }
-        });
+        openTestFileItem.addActionListener(new ActionListenerRunTests(mFrame, mainTabPane, testResultPanel));
         menu.add(openTestFileItem);
 
         menuBar.add(menu);

@@ -15,6 +15,16 @@ public class RestRequest {
 
     }
 
+    private void readResponse(final HttpURLConnection con, final RestResponse response, final boolean isGzipEnabled) throws IOException {
+        if (isGzipEnabled == false) {
+            ResponseReaderUnencoded defaultResponseReader = new ResponseReaderUnencoded();
+            response.setResponseText(defaultResponseReader.read(con));
+        } else if (isGzipEnabled == true) {
+            ResponseReaderGzip gzipResponseReader = new ResponseReaderGzip();
+            response.setResponseText(gzipResponseReader.read(con));
+        }
+    }
+
     public RestResponse makeRequest(final String requestUrl, final String requestMethod,
         final String body, final String userAgentString, final String encoding)
             throws IOException {
@@ -59,33 +69,7 @@ public class RestRequest {
         final int statusCode = con.getResponseCode();
         response.setStatusCode(statusCode);
 
-        StringBuilder responseBuilder = new StringBuilder(4000);
-
-        if (isGzipEnabled == false) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
-                String responseLine = null;
-                while ((responseLine = br.readLine()) != null) {
-                    responseBuilder.append(responseLine.trim());
-                    responseBuilder.append('\n');
-                }
-            }
-        } else if (isGzipEnabled == true) {            
-            InputStream inStream = new GZIPInputStream(con.getInputStream());
-            try (Reader br = new InputStreamReader(inStream)) {
-                int ch;
-                while (true) {
-                    ch = br.read();
-                    
-                    if (ch == -1) {
-                       break;
-                    }
-                    
-                    responseBuilder.append((char) ch);
-                 }
-            }
-        }
-
-        response.setResponseText(responseBuilder.toString());
+        readResponse(con, response, isGzipEnabled);
 
         return response;
     }
